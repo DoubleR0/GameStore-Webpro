@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block contentGame %}
+<div class="row ">
+    <div class="col-4"></div>
+    <div class="col-4">
+        <form action="{% url 'register' %}" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <input class="form-control my-3" type="text" placeholder="Firstname" name="Firstname">
+                <input class="form-control my-3" type="text" placeholder="Lastname" name="Lastname">
+                <input class="form-control my-3" type="text" placeholder="Username" name="Username">
+                <input type="password" class="form-control my-3" id="exampleInputPassword1" placeholder="Password" name="Password">
+                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                    placeholder="@Email.com" name="Email">
+            </div>
+            <dvi class="row">
+                <div class="col-4"></div>
+                <div class="col-4">
+                    <button type="submit" class=" btn btn-primary justify-content-center">Submit</button>
+                </div>
+            </dvi>
+        </form>
+    </div>
+</div>
+{% endblock contentGame %}

@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block contentGame %}
+<div class="row">
+    <div class="col-9">
+        <div class="row my-5">
+            <h2>Payment</h2>
+            <hr>
+        </div>
+        <div class="row my-5">
+            <div class="col-3">
+                <img src="{% static 'pay.png' %}" class="img-fluid w-75 mx-3" alt="Responsive image">
+                <label class="btn btn-secondary active">
+                    <input type="radio" name="options" id="option3">Credit
+                </label>
+            </div>
+
+            <div class="col-3">
+                <img src="{% static 'paypal.png' %}" class="img-fluid w-75 mx-3 mt-3" alt="Responsive image">
+                <label class="btn btn-secondary active">
+                    <input type="radio" name="options" id="option3">Paypal
+                </label>
+            </div>
+
+            <div class="col-3">
+                <img src="{% static 'wechat.png' %}" class="img-fluid w-75 mx-3 mt-2" alt="Responsive image">
+                <label class="btn btn-secondary">
+                    <input type="radio" name="options" id="option3">Wechat
+                </label>
+            </div>
+        </div>
+    </div>
+    <div class="col-3 mt-5">
+        <div class="card" style="width: 18rem;">
+            <img class="card-img-top" src="{% static 'photo.png' %}" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">Some quick example text to build on the card title and make up the bulk of the
+                    card's content.</p>
+                <h3 class="pl-5 ml-5">Cost</h3>
+                <form action="{% url 'buy' id %}" method="post">
+                    {% csrf_token %}
+                <button class="btn btn-success btn-lg btn-block" name="idgame">Pay</button>
+            </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock contentGame %}

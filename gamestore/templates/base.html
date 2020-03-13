@@ -1,0 +1,49 @@
+{% load static %}
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+</head>
+
+<body>
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="{% url 'index' %}">
+    <img src="{% static 'ps4.png' %}" class="img-fluid mx-2" alt="Responsive image" width="40" height="40">
+    </a>
+    </button>
+    <div class="container">
+      <div class="col-10"></div>
+      {% if user.is_authenticated %}
+        {% if perms.GameLibrary.change_game %}
+        <a class="" href="../admin/GameLibrary/game/add/"><button class="btn btn btn-dark" type="submit">Add Game</button></a>
+        <a class="" href="../admin/GameLibrary/game/"><button class="btn btn btn-dark" type="submit">Edit Game</button></a>
+        {% else %}
+        <a class="" href="{% url 'myGame' %}"><button class="btn btn btn-dark" type="submit">MyLibrary</button></a>
+        {% endif %}
+      <a class="" href="{% url 'logout' %}"><button class="btn btn btn-dark" type="submit">Logout</button></a>
+      {% else %}
+      <a class="" href="{% url 'login' %}"><button class="btn btn btn-dark" type="submit">Login</button></a>
+      <a class="" href="{% url 'register' %}"><button class="btn btn btn-dark" type="submit">Register</button></a>
+      {% endif %}
+    </div>
+  </nav>
+
+  <div class="container">
+    {% block contentGame %}
+    {% endblock contentGame %}
+  </div>
+
+<footer class="page-footer font-small blue">
+  <div class="footer-copyright text-center py-3">© 2020 Copyright:
+    <a href="https://mdbootstrap.com/"> MDBootstrap.com</a>
+  </div>
+</footer>
+
+</body>
+<script src="js/bootstrap.min.js"></script>
+
+</html>

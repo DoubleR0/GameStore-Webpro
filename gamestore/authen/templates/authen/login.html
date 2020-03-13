@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block contentGame %}
+<div class="row ">
+    <div class="col-4"></div>
+    <div class="col-4">
+        <p class="text-danger mt-3">{{ fail }}</p>
+<form action="{% url 'login' %}" method="post">
+    {% csrf_token %}
+  <div class="form-group">
+    <input class="form-control my-3" type="text" placeholder="Username" name="Username">
+    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" name="Password">
+  </div>
+  <dvi class="row">
+      <div class="col-4"></div>
+      <div class="col-4">
+        <button type="submit" class=" btn btn-primary justify-content-center">Submit</button>
+      </div>
+  </dvi>
+</form>
+</div>
+</div>
+{% endblock contentGame %}

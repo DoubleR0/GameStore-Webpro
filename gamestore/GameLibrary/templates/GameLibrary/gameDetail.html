@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block contentGame %}
+<div class="row justify-content-center">
+    <div class="col-6 mt-5">
+        <img src="{% static image.image_url.url %}" class="img-fluid mx-2 mw-100" alt="Responsive image">
+    </div>
+</div>
+<div class="row">
+    <div class="col-3">
+        <img src="{% static image.image_url.url %}" class="img-fluid mx-2 mw-100" alt="Responsive image">
+    </div>
+    <div class="col-6">
+        <h2>
+            {{ game.name }}
+        </h2>
+        <p></p>
+    </div>
+    <div class="col-3 p-0">
+        <blockquote class="blockquote text-right ml-5">
+            <h3 class=" mt-4">{{game.price}} $</h3>
+        </blockquote>
+        {% if user.is_authenticated %}
+            {% if perms.GameLibrary.change_game %}
+                <a class="" href="../../admin/GameLibrary/game/{{ game.game_id }}/delete/"><button class="btn btn btn-dark" type="submit">Delete Game</button></a>
+                <a class="" href="../../admin/GameLibrary/game/{{ game.game_id }}/change/"><button class="btn btn btn-dark" type="submit">Edit Game</button></a>
+            {% else %}
+                {% if buyed == "mute" %}
+                    <button type="submit" class="btn btn-success rounded-0 mx-5 btn-lg btn-block">Download</button>
+                {% else %}
+                <form action="{% url 'payment' game.game_id %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-success rounded-0 mx-5 btn-lg btn-block">GET</button>
+                </form>
+                {% endif %}
+            {% endif %}
+        {% else %}
+        <form action="{% url 'login' %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-success rounded-0 mx-5 btn-lg btn-block">GET</button>
+        </form>
+        {% endif %}
+    </div>
+</div>
+<div class="row mt-5">
+    <div class="col-5">
+        <h2>About this Game</h2>
+    </div>
+    <div class="col-2">
+        <div class="row">
+            <div class="col">
+                <p class="text-muted">Developer</p>
+                <p class="text">{{game.developer}}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-2">
+        <div class="row">
+            <div class="col">
+                <p class="text-muted">Release Date</p>
+                <p class="text">{{game.release_date}}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-2">
+        <div class="row">
+            <div class="col">
+                <p class="text-muted">Rating</p>
+                <p class="text">{{game.rating}}</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-5">
+
+    </div>
+    <div class="col-6">
+        <p>Describe</p>
+        <p class="text-muted">{{game.description}}</p>
+    </div>
+</div>
+{% endblock contentGame %}

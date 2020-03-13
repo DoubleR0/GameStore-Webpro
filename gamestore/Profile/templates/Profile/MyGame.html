@@ -1,0 +1,23 @@
+{% extends 'GameLibrary/homePage.html' %}
+{% load static %}
+{% block ListGame %}
+<h1 class="font-weight-bold">Your Library</h1>
+<div class="row mb-5">
+    {% for i in usergame %}
+    {% for k in game %}
+    {% if i.game_id_id == k.game_id %}
+    <div class="col-3">
+        {% for j in image %}
+        {% if j.game_id_id == i.game_id_id %}
+        <a href="{% url 'detail' k.game_id %}"><img src="{% static j.image_url.url %}" class="img-fluid w-auto mx-2" alt="Responsive image"></a>
+        {% endif %}
+        {% endfor %}
+        <p class="text">{{k.name}}</p>
+        <p class="text text-muted">{{ i.purchased_date }}</p>
+        <p class="text text-muted">{{ i.serial }}</p>
+    </div>
+    {% endif %}
+    {% endfor %}
+    {% endfor %}
+</div>
+{% endblock ListGame %}

@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block contentGame %}
+<div class="row my-5 justify-content-end">
+    <div class="col-4 align-self-end">
+        <form class="form-inline" action="{% url 'index' %}">
+            <div class="input-group mr-0 w-75">
+                <div class="input-group-prepend">
+                    <button class="btn btn-light " type="submit" id="button-addon1">
+                        <img src="{% static 'search.png' %}" class="img-fluid mx-2 rounded" alt="Responsive image"
+                            width="15" height="15">
+                    </button>
+                </div>
+                <input type="text" class="form-control" placeholder="Search" aria-label="Example text with button addon"
+                    aria-describedby="button-addon1">
+            </div>
+        </form>
+    </div>
+</div>
+
+{% block ListGame %}
+{% for i in alltype %}
+<div class="row">
+    <div class="col-9">
+        <h1 class="font-weight-bold">{{ i.type_name }}</h1>
+    </div>
+    <div class="col-2">
+        <form action="{% url 'catagory'  %}" method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-light font-weight-bold" value="{{ i.type_id }}" name="{{ i.type_id }}">See more</button>
+    </form>
+    </div>
+</div>
+<div class="row mb-5">
+    {% for k in listgame %}
+    {% if i.type_id == k.game_type_id_id %}
+    <div class="col-2">
+        {% for j in image %}
+          {% if j.game_id_id == k.game_id %}
+          <a href="{% url 'detail' k.game_id %}"><img src="{% static j.image_url %}" class="w-100 card-img-top rounded" alt="Responsive image"></a>
+          {% endif %}
+        {% endfor %}
+        <div class="card-body">
+            <p class="card-title">{{k.name}}</p>
+            <p class="card-text text-muted">{{k.developer}}</p>
+        </div>
+    </div>
+    {% endif %}
+    {% endfor %}
+    {% if i.type_id == 1 %}
+    <div class="col-2">
+        <p class="font-weight-bold">Filter</p>
+        <hr>
+        <form action="{% url 'catagory' %}" method="post">
+        {% csrf_token %}
+        {% for i in alltype %}
+        <div class="form-group">
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" id="customCheck{{ i.type_id }}" class="custom-control-input" name="{{ i.type_id }}" value="{{ i.type_id }}" onchange="this.form.submit()">
+                <label class="custom-control-label" for="customCheck{{ i.type_id }}">{{ i.type_name }}</label>
+            </div>
+        </div>
+        {% endfor %}
+        </form>
+    </div>
+    {% endif %}
+</div>
+{% endfor %}
+{% endblock ListGame %}
+{% endblock contentGame %}

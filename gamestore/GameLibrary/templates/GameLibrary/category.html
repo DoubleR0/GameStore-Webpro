@@ -1,0 +1,67 @@
+{% extends 'GameLibrary/homePage.html' %}
+{% load static %}
+{% block ListGame %}
+{% for i in game_type %}
+{% if i.type_id == check %}
+<h1 class="font-weight-bold">{{ i.type_name }}</h1>
+{% endif %}
+{% endfor %}
+<div class="row mb-5">
+    {% for k in listgame %}
+    {% if forloop.counter == 6 %}
+    <div class="col-2">
+        <p class="font-weight-bold">Filter</p>
+        <hr>
+        <form action="{% url 'catagory'  %}" method="post">
+            {% csrf_token %}
+            {% for i in alltype %}
+            <div class="form-group">
+                <div class="custom-control custom-checkbox">
+                    <input type="checkbox" id="customCheck{{ i.type_id }}" class="custom-control-input"
+                        name="{{ i.type_id }}" value="{{ i.type_id }}" onchange="this.form.submit()">
+                    <label class="custom-control-label" for="customCheck{{ i.type_id }}">{{ i.type_name }}</label>
+                </div>
+            </div>
+            {% endfor %}
+        </form>
+    </div>
+    <div class="col-2">
+        {% for j in image %}
+          {% if j.game_id_id == k.game_id %}
+          <a href="{% url 'detail' k.game_id %}"><img src="{% static j.image_url %}" class="w-100 card-img-top rounded" alt="Responsive image"></a>
+          {% endif %}
+        {% endfor %}
+        <div class="card-body">
+        <p class="text">{{k.name}}</p>
+        <p class="text text-muted">{{k.developer}}</p>
+        </div>
+    </div>
+    {% elif forloop.counter|divisibleby:"5" and forloop.counter > 6 %}
+    <div class="col-2">
+        {% for j in image %}
+          {% if j.game_id_id == k.game_id %}
+          <a href="{% url 'detail' k.game_id %}"><img src="{% static j.image_url %}" class="w-100 card-img-top rounded" alt="Responsive image"></a>
+          {% endif %}
+        {% endfor %}
+        <div class="card-body">
+        <p class="text">{{k.name}}</p>
+        <p class="text text-muted">{{k.developer}}</p>
+        </div>
+    </div>
+    <div class="col-2"></div>
+    {% else %}
+    <div class="col-2">
+        {% for j in image %}
+          {% if j.game_id_id == k.game_id %}
+          <a href="{% url 'detail' k.game_id %}"><img src="{% static j.image_url %}" class="w-100 card-img-top rounded" alt="Responsive image"></a>
+          {% endif %}
+        {% endfor %}
+        <div class="card-body">
+        <p class="text">{{k.name}}</p>
+        <p class="text text-muted">{{k.developer}}</p>
+        </div>
+    </div>
+    {% endif %}
+    {% endfor %}
+</div>
+{% endblock ListGame %}
